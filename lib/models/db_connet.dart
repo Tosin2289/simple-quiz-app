@@ -3,11 +3,18 @@ import 'package:quiz_app/models/question.dart';
 import 'dart:convert';
 
 class DbConnect {
-  final urls = Uri.parse(
-      'http://simplequizapp-415f6-default-rtdb.firebaseio.com/questions.json');
+  var url = Uri.parse(
+      'https://simplequizapp-415f6-default-rtdb.firebaseio.com/questions.json');
   Future addQuestion(Question question) async {
-    http.post(urls,
+    http.post(url,
         body:
-            json.encode({'title': question.title, 'options': question.option}));
+            jsonEncode({'title': question.title, 'options': question.option}));
+  }
+
+  Future<void> fetchQuestions() async {
+    http.get(url).then((response) {
+      var data = jsonDecode(response.body);
+      print(data);
+    });
   }
 }

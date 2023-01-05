@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "546062910978",
+    "firebase_url": "https://simplequizapp-415f6-default-rtdb.firebaseio.com",
+    "project_id": "simplequizapp-415f6",
+    "storage_bucket": "simplequizapp-415f6.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:546062910978:android:88e9982b7db7d3c2f1891b",
+        "android_client_info": {
+          "package_name": "com.example.quiz_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "546062910978-8ta5k7p2r69fd1cutoo2as1qd8v2mt9a.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD19sHU72q9GEvX_0yu9zAzf9eISGh9ytc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "546062910978-8ta5k7p2r69fd1cutoo2as1qd8v2mt9a.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
