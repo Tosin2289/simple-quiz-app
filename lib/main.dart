@@ -12,13 +12,12 @@ void main() async {
   );
   var db = DbConnect();
   db.addQuestion(
-    Question(id: '1', title: "What the capital of Lagos State", option: {
-      'Ikeja': true,
-      'Ilorin': false,
-      'Ibadan': false,
-      'Malate': false,
-    }),
-  );
+      Question(id: '1', title: "What the capital of Lagos State", option: {
+    'Ikeja': true,
+    'Ilorin': false,
+    'Ibadan': false,
+    'Malate': false,
+  }));
   db.fetchQuestions();
   runApp(const MyApp());
 }
