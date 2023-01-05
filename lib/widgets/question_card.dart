@@ -18,7 +18,7 @@ class QuestionCard extends StatelessWidget {
         title: Text(
           option,
           textAlign: TextAlign.center,
-          style: TextStyle(fontSize: 22),
+          style: const TextStyle(fontSize: 22),
         ),
       ),
     );

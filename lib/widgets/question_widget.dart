@@ -18,7 +18,7 @@ class QuestionWidget extends StatelessWidget {
       alignment: Alignment.centerLeft,
       child: Text(
         'Question ${indexAction + 1}/$totalQuestion:$question',
-        style: TextStyle(fontSize: 24, color: neutral),
+        style: const TextStyle(fontSize: 24, color: neutral),
       ),
     );
   }

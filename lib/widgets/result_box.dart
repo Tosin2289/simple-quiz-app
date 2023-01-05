@@ -20,12 +20,12 @@ class ResultBox extends StatelessWidget {
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            Text(
+            const Text(
               'Result',
               style: TextStyle(
                   color: neutral, fontSize: 22, fontWeight: FontWeight.bold),
             ),
-            SizedBox(
+            const SizedBox(
               height: 30,
             ),
             CircleAvatar(
@@ -40,7 +40,7 @@ class ResultBox extends StatelessWidget {
                 style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
               ),
             ),
-            SizedBox(
+            const SizedBox(
               height: 20,
             ),
             Text(
@@ -49,14 +49,14 @@ class ResultBox extends StatelessWidget {
                   : result < questionlength / 2
                       ? 'Try Again'
                       : 'Great!',
-              style: TextStyle(color: neutral),
+              style: const TextStyle(color: neutral),
             ),
-            SizedBox(
+            const SizedBox(
               height: 25,
             ),
             GestureDetector(
               onTap: onTap,
-              child: Text(
+              child:const Text(
                 "Start over",
                 style: TextStyle(
                   fontSize: 23,
