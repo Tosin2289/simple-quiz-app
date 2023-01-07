@@ -44,43 +44,44 @@ class DefaultFirebaseOptions {
   }
 
   static const FirebaseOptions web = FirebaseOptions(
-    apiKey: 'AIzaSyAmNeA5l7yuYFt3TwsWztoltEyzW0VwodQ',
-    appId: '1:546062910978:web:fb91f411ee66cad0f1891b',
-    messagingSenderId: '546062910978',
-    projectId: 'simplequizapp-415f6',
-    authDomain: 'simplequizapp-415f6.firebaseapp.com',
-    databaseURL: 'https://simplequizapp-415f6-default-rtdb.firebaseio.com',
-    storageBucket: 'simplequizapp-415f6.appspot.com',
+    apiKey: '',
+    appId: '',
+    messagingSenderId: '',
+    projectId: '',
+    authDomain: '',
+    databaseURL: '',
+    storageBucket: '',
   );
 
   static const FirebaseOptions android = FirebaseOptions(
-    apiKey: 'AIzaSyD19sHU72q9GEvX_0yu9zAzf9eISGh9ytc',
-    appId: '1:546062910978:android:88e9982b7db7d3c2f1891b',
-    messagingSenderId: '546062910978',
-    projectId: 'simplequizapp-415f6',
-    databaseURL: 'https://simplequizapp-415f6-default-rtdb.firebaseio.com',
-    storageBucket: 'simplequizapp-415f6.appspot.com',
+    apiKey: '',
+    appId: '',
+    messagingSenderId: '',
+    projectId: '',
+    databaseURL: '',
+    storageBucket: '',
   );
 
   static const FirebaseOptions ios = FirebaseOptions(
-    apiKey: 'AIzaSyCEspNJByDCM69GfAEd9OEL8CKJ6P4b4D0',
-    appId: '1:546062910978:ios:73ab10dbf7e1be76f1891b',
-    messagingSenderId: '546062910978',
-    projectId: 'simplequizapp-415f6',
-    databaseURL: 'https://simplequizapp-415f6-default-rtdb.firebaseio.com',
-    storageBucket: 'simplequizapp-415f6.appspot.com',
-    iosClientId: '546062910978-4vde555t1kvmc4osnc3bbla5p5nvqggj.apps.googleusercontent.com',
-    iosBundleId: 'com.example.quizApp',
+    apiKey: '',
+    appId: '',
+    messagingSenderId: '',
+    projectId: '',
+    databaseURL: '',
+    storageBucket: '',
+    iosClientId: '',
+    iosBundleId: '',
   );
 
   static const FirebaseOptions macos = FirebaseOptions(
-    apiKey: 'AIzaSyCEspNJByDCM69GfAEd9OEL8CKJ6P4b4D0',
-    appId: '1:546062910978:ios:73ab10dbf7e1be76f1891b',
-    messagingSenderId: '546062910978',
-    projectId: 'simplequizapp-415f6',
-    databaseURL: 'https://simplequizapp-415f6-default-rtdb.firebaseio.com',
-    storageBucket: 'simplequizapp-415f6.appspot.com',
-    iosClientId: '546062910978-4vde555t1kvmc4osnc3bbla5p5nvqggj.apps.googleusercontent.com',
-    iosBundleId: 'com.example.quizApp',
+    apiKey: '',
+    appId: '',
+    messagingSenderId: '',
+    projectId: '',
+    databaseURL: '',
+    storageBucket: '',
+    iosClientId: '',
+    iosBundleId: '',
   );
 }
+// Delete this file and gemerate yours
