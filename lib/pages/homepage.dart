@@ -1,196 +1,135 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
-import 'package:quiz_app/constants.dart';
-import 'package:quiz_app/models/db_connet.dart';
-import 'package:quiz_app/widgets/next_button.dart';
+import 'package:http/http.dart' as http;
 
-import 'package:quiz_app/widgets/question_card.dart';
-import 'package:quiz_app/widgets/question_widget.dart';
-import 'package:quiz_app/widgets/result_box.dart';
+import '../models/quiz.dart';
 
-import '../models/question.dart';
-
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({Key? key}) : super(key: key);
+class HomePage extends StatefulWidget {
+  const HomePage({super.key});
 
   @override
-  State<MyHomePage> createState() => _MyHomePageState();
+  State<HomePage> createState() => _HomePageState();
 }
 
-class _MyHomePageState extends State<MyHomePage> {
-  var db = DbConnect();
-  late Future _question;
-  Future<List<Question>> getData() async {
-    return db.fetchQuestions();
+class _HomePageState extends State<HomePage> {
+  late Quiz quiz;
+  late List<Results> results;
+  Future<void> fetchQuestions() async {
+    var res = await http
+        .get(Uri.parse("https://opentdb.com/api.php?amount=20&category=21"));
+    var decRes = jsonDecode(res.body);
+    print(decRes);
+    quiz = Quiz.fromJson(decRes);
+    results = quiz.results!;
   }
 
-  @override
-  void initState() {
-    _question = getData();
-    super.initState();
-  }
-
-  // List<Question> extractedData = [
-  //   Question(id: '1', title: "What the capital of Kwara State", option: {
-  //     'Ikeja': false,
-  //     'Ilorin': true,
-  //     'Ibadan': false,
-  //     'Malate': false,
-  //   }),
-  //   Question(id: '2', title: "What the capital of Lagos State", option: {
-  //     'Ikeja': true,
-  //     'Ilorin': false,
-  //     'Ibadan': false,
-  //     'Malate': false,
-  //   }),
-  // ];
-  int index = 0;
-  void nextQuestion(int questionlength) {
-    if (index == questionlength - 1) {
-      showDialog(
-          context: context,
-          barrierDismissible: false,
-          builder: ((context) => ResultBox(
-                onTap: startOver,
-                result: score,
-                questionlength: questionlength,
-              )));
-    } else {
-      if (ispressed) {
-        setState(() {
-          index++;
-          ispressed = false;
-          isAlreadySelected = false;
-        });
-      } else {
-        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-          backgroundColor: Colors.red,
-          content: Text('Please select an option'),
-          behavior: SnackBarBehavior.floating,
-          margin: EdgeInsets.symmetric(vertical: 20),
-        ));
-      }
-    }
-  }
-
-  bool ispressed = false;
-  bool isAlreadySelected = false;
-  void checkanswerandupdate(bool value) {
-    if (isAlreadySelected) {
-      return;
-    } else {
-      if (value == true) {
-        score++;
-      }
-      setState(() {
-        ispressed = true;
-        isAlreadySelected = true;
-      });
-    }
-  }
-
-  void startOver() {
-    setState(() {
-      index = 0;
-      score = 0;
-      ispressed = false;
-      isAlreadySelected = false;
-    });
-    Navigator.pop(context);
-  }
-
-  int score = 0;
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder(
-      future: _question as Future<List<Question>>,
-      builder: (context, snapshot) {
-        if (snapshot.connectionState == ConnectionState.done) {
-          if (snapshot.hasError) {
-            return Center(
-              child: Text('${snapshot.error}'),
-            );
-          } else if (snapshot.hasData) {
-            var extractedData = snapshot.data as List<Question>;
-            return Scaffold(
-              backgroundColor: background,
-              appBar: AppBar(
-                actions: [
-                  Padding(
-                    padding: EdgeInsets.all(18),
-                    child: Text(
-                      'score : $score',
-                      style: TextStyle(fontSize: 18),
-                    ),
-                  ),
-                ],
-                elevation: 0,
-                backgroundColor: background,
-                title: const Text("Quiz app"),
-              ),
-              body: SizedBox(
-                child: Container(
-                  width: double.infinity,
-                  child: Column(
+    return Scaffold(
+      appBar: AppBar(
+        centerTitle: true,
+        title: const Text(
+          "Quiz App",
+          style: TextStyle(fontWeight: FontWeight.bold),
+        ),
+        elevation: 0,
+      ),
+      body: FutureBuilder(
+        future: fetchQuestions(),
+        builder: (context, snapshot) {
+          switch (snapshot.connectionState) {
+            case ConnectionState.none:
+              return const Text("Press button to start");
+            case ConnectionState.active:
+            case ConnectionState.waiting:
+              return const Center(
+                child: CircularProgressIndicator(),
+              );
+            case ConnectionState.done:
+              if (snapshot.hasError) {
+                return const Text("You gats some error");
+              } else {
+                return questionList();
+              }
+            default:
+              return Container();
+          }
+        },
+      ),
+    );
+  }
+
+  Widget questionList() {
+    return ListView.builder(
+      itemCount: results.length,
+      itemBuilder: (context, index) {
+        return Card(
+          color: Colors.white,
+          elevation: 0,
+          child: ExpansionTile(
+            title: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  results[index].question.toString(),
+                  style: const TextStyle(
+                      fontSize: 18.0, fontWeight: FontWeight.bold),
+                ),
+                FittedBox(
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      QuestionWidget(
-                          indexAction: index,
-                          question: extractedData[index].title,
-                          totalQuestion: extractedData.length),
-                      const Divider(
-                        color: neutral,
-                      ),
-                      const SizedBox(
-                        height: 25,
-                      ),
-                      for (int i = 0;
-                          i < extractedData[index].option.length;
-                          i++)
-                        GestureDetector(
-                          onTap: () {
-                            checkanswerandupdate(extractedData[index]
-                                    .option
-                                    .values
-                                    .toList()[i] ==
-                                true);
-                          },
-                          child: QuestionCard(
-                            option:
-                                extractedData[index].option.keys.toList()[i],
-                            color: ispressed
-                                ? extractedData[index]
-                                            .option
-                                            .values
-                                            .toList()[i] ==
-                                        true
-                                    ? correct
-                                    : incorrect
-                                : neutral,
-                          ),
+                      FilterChip(
+                        shape: RoundedRectangleBorder(
+                            side: BorderSide(color: Colors.grey.shade100),
+                            borderRadius: BorderRadius.circular(20)),
+                        backgroundColor: Colors.grey.shade100,
+                        onSelected: (b) {},
+                        label: Text(
+                          results[index].category.toString(),
                         ),
+                      ),
+                      const SizedBox(width: 10),
+                      FilterChip(
+                        shape: RoundedRectangleBorder(
+                            side: BorderSide(color: Colors.grey.shade100),
+                            borderRadius: BorderRadius.circular(20)),
+                        backgroundColor: Colors.grey.shade100,
+                        onSelected: (b) {},
+                        label: Text(
+                          results[index].difficulty.toString(),
+                        ),
+                      ),
                     ],
                   ),
                 ),
-              ),
-              floatingActionButton: GestureDetector(
-                onTap: () => nextQuestion(extractedData.length),
-                child: const Padding(
-                  padding: EdgeInsets.all(10.0),
-                  child: NextButton(),
-                ),
-              ),
-              floatingActionButtonLocation:
-                  FloatingActionButtonLocation.centerFloat,
-            );
-          }
-        } else {
-          return const Center(
-            child: CircularProgressIndicator(),
-          );
-        }
-        return const Center(
-          child: Text('No Data'),
+              ],
+            ),
+            leading: CircleAvatar(
+              backgroundColor: Colors.grey.shade100,
+              child: Text(
+                  results[index].type!.startsWith("m") ? "M" : "B".toString()),
+            ),
+            children: [],
+          ),
         );
       },
     );
+  }
+}
+
+class AnswerWidget extends StatefulWidget {
+  const AnswerWidget({super.key});
+
+  @override
+  State<AnswerWidget> createState() => _AnswerWidgetState();
+}
+
+class _AnswerWidgetState extends State<AnswerWidget> {
+  @override
+  Widget build(BuildContext context) {
+    return Container();
   }
 }
