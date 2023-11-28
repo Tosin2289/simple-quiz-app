@@ -1,8 +1,8 @@
 # quiz_app
 Simple quiz app with flutter and firebase
+<img src='https://github.com/Tosin2289/simple-quiz-app/assets/66890167/fca15ae2-6422-4ca4-8a6e-13ee73ca0f26' width='200'>
+<img src='https://github.com/Tosin2289/simple-quiz-app/assets/66890167/55b8bc82-c44d-49a1-b632-9baf874bd22b' width='200'>
+<img src='https://github.com/Tosin2289/simple-quiz-app/assets/66890167/e0c53d44-1fe7-4d6a-967d-d6dd433e6edc' width='200'>
 
-![Screenshot_1672873005](https://user-images.githubusercontent.com/66890167/210665698-8e446ab3-1d3e-42a2-b4ad-d5efd9ee4bca.png)
 
-![Screenshot_1672883068](https://user-images.githubusercontent.com/66890167/210685732-43b99d99-4346-4f54-9a30-c95356f1055f.png)
 
-![Screenshot_1672883088](https://user-images.githubusercontent.com/66890167/210685741-21e3dded-425b-465a-98d3-59a2a2f08b73.png)
