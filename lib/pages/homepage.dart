@@ -8,7 +8,11 @@ import 'package:lottie/lottie.dart';
 import '../models/quiz.dart';
 
 class HomePage extends StatefulWidget {
-  const HomePage({super.key});
+  final String amount;
+  const HomePage({
+    Key? key,
+    required this.amount,
+  }) : super(key: key);
 
   @override
   State<HomePage> createState() => _HomePageState();
@@ -18,8 +22,8 @@ class _HomePageState extends State<HomePage> {
   late Quiz quiz;
   late List<Results> results;
   Future<void> fetchQuestions() async {
-    var res = await http
-        .get(Uri.parse("https://opentdb.com/api.php?amount=20&category=21"));
+    var res = await http.get(Uri.parse(
+        "https://opentdb.com/api.php?amount=${widget.amount}&category=21"));
     var decRes = jsonDecode(res.body);
 
     quiz = Quiz.fromJson(decRes);
